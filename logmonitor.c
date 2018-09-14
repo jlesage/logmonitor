@@ -21,6 +21,7 @@
 #include <assert.h>
 #include <time.h>
 #include <getopt.h>
+#include <inttypes.h>
 
 #define LM_SUCCESS 0
 #define LM_ERROR 1
@@ -238,8 +239,8 @@ static char *file2str(const char *filepath)
     if (IS_SUCCESS(retval)) {
         buf = malloc((st.st_size + 1) * sizeof(char));
         if (!buf) {
-            SET_ERROR(retval, "Failed to allocated %ld bytes of memory to read file '%s'.",
-                      st.st_size + 1,
+            SET_ERROR(retval, "Failed to allocated %jd bytes of memory to read file '%s'.",
+                      (intmax_t)(st.st_size + 1),
                       filepath);
         }
     }
