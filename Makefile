@@ -1,7 +1,7 @@
 TARGET = logmonitor
 LIBS =
 CC = gcc
-CFLAGS = -Wall -Werror
+CFLAGS = -Wall -Werror -std=gnu11
 
 SOURCES = logmonitor.c
 HEADERS = 
