@@ -1,23 +1,25 @@
 TARGET = logmonitor
-LIBS =
-CC = gcc
+
+CC = $(TOOLCHAIN_PREFIX)gcc
+STRIP = $(TOOLCHAIN_PREFIX)strip
+RM = rm -f
+
+CPPFLAGS = -MMD
 CFLAGS = -Wall -Werror -std=gnu11
+LDFLAGS = -static
+LDLIBS =
 
 SOURCES = logmonitor.c
-HEADERS = 
 OBJECTS = $(patsubst %.c, %.o, $(SOURCES))
-
-.PHONY: default all clean
-
-default: $(TARGET)
-all: default
-
-%.o: %.c $(HEADERS)
-	$(CC) $(CFLAGS) -c $< -o $@
+DEPENDS = $(OBJECTS:.o=.d)
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(OBJECTS) $(CFLAGS) $(LIBS) -o $@
+	$(CC) $(LDFLAGS) $(OBJECTS) $(LDLIBS) -o $@
+	$(STRIP) $@
 
 clean:
-	-rm -f *.o
-	-rm -f $(TARGET)
+	-$(RM) $(OBJECTS)
+	-$(RM) $(TARGET)
+	-$(RM) $(DEPENDS)
+
+-include $(DEPENDS)
