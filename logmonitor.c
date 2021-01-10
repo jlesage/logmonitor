@@ -644,7 +644,7 @@ static lm_notification_t *alloc_notification(const char *notifications_dir, cons
         notification_dir = NULL;
     }
 
-    if (IS_ERROR(retval)) {
+    if (IS_ERROR(retval) && notif) {
         free_notification(notif);
         notif = NULL;
     }
@@ -819,7 +819,7 @@ static lm_target_t *alloc_target(const char *targets_dir, const char *name)
         target_dir = NULL;
     }
 
-    if (IS_ERROR(retval)) {
+    if (IS_ERROR(retval) && target) {
         free_target(target);
         target = NULL;
     }
