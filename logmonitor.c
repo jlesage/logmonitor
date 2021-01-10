@@ -334,7 +334,7 @@ static int invoke_exec(const char *filter_exe, const char *args[], unsigned int 
 
         // Handle output from the child.
         if (output && outputsize > 0) {
-            // Make sure to one byte for the null terminating character.
+            // Make sure to keep one byte for the null terminating character.
             ssize_t count = full_read(pipefds[0], output, outputsize - 1);
             if (count < 0) {
                 output[0] = '\0';
@@ -1046,7 +1046,7 @@ int main(int argc, char **argv)
 #if 0
     if (optind >= argc) {
         retval = LM_ERROR;
-        ERROR("At least of file to monitor must be specified.");
+        ERROR("At least one file to monitor must be specified.");
         usage();
     }
 #endif
